@@ -50,16 +50,16 @@ const trackers = [
     {
         category: "Fingerprint",
         items: [
-            { name: "navigator.userAgent", check: () => typeof navigator.userAgent === "string" && navigator.userAgent },
+            { name: "navigator.userAgent", check: () => typeof navigator.userAgent === "string" && navigator.userAgent.length > 0 },
             { name: "navigator.userAgentData", check: () => navigator.userAgentData !== undefined },
-            { name: "navigator.platform", check: () => typeof navigator.platform === "string" && navigator.platform },
-            { name: "navigator.language", check: () => typeof navigator.language === "string" && navigator.language },
+            { name: "navigator.platform", check: () => typeof navigator.platform === "string" && navigator.platform.length > 0 },
+            { name: "navigator.language", check: () => typeof navigator.language === "string" && navigator.language.length > 0 },
             { name: "navigator.languages", check: () => Array.isArray(navigator.languages) && navigator.languages.length > 0 },
-            { name: "navigator.hardwareConcurrency", check: () => typeof navigator.hardwareConcurrency === "number" },
-            { name: "navigator.deviceMemory", check: () => typeof navigator.deviceMemory === "number" },
-            { name: "navigator.maxTouchPoints", check: () => typeof navigator.maxTouchPoints === "number" },
-            { name: "navigator.vendor", check: () => typeof navigator.vendor === "string" && navigator.vendor },
-            { name: "navigator.product", check: () => typeof navigator.product === "string" && navigator.product },
+            { name: "navigator.hardwareConcurrency", check: () => typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency > 0 },
+            { name: "navigator.deviceMemory", check: () => typeof navigator.deviceMemory === "number" && navigator.deviceMemory > 0 },
+            { name: "navigator.maxTouchPoints", check: () => typeof navigator.maxTouchPoints === "number" && navigator.maxTouchPoints >= 0 },
+            { name: "navigator.vendor", check: () => typeof navigator.vendor === "string" && navigator.vendor.length > 0 },
+            { name: "navigator.product", check: () => typeof navigator.product === "string" && navigator.product.length > 0 },
             { name: "navigator.webdriver", check: () => navigator.webdriver !== undefined },
             { name: "navigator.doNotTrack", check: () => navigator.doNotTrack !== null },
             { name: "navigator.cookieEnabled", check: () => typeof navigator.cookieEnabled === "boolean" },
@@ -72,13 +72,13 @@ const trackers = [
             { name: "screen.availHeight", check: () => typeof screen.availHeight === "number" && screen.availHeight > 0 },
             { name: "screen.colorDepth", check: () => typeof screen.colorDepth === "number" && screen.colorDepth > 0 },
             { name: "screen.pixelDepth", check: () => typeof screen.pixelDepth === "number" && screen.pixelDepth > 0 },
-            { name: "screen.orientation.type", check: () => typeof screen.orientation?.type === "string" && screen.orientation.type },
+            { name: "screen.orientation.type", check: () => typeof screen.orientation?.type === "string" && screen.orientation.type.length > 0 },
             { name: "window.devicePixelRatio", check: () => typeof window.devicePixelRatio === "number" && window.devicePixelRatio > 0 },
             { name: "window.innerWidth", check: () => typeof window.innerWidth === "number" && window.innerWidth > 0 },
             { name: "window.innerHeight", check: () => typeof window.innerHeight === "number" && window.innerHeight > 0 },
             { name: "window.outerWidth", check: () => typeof window.outerWidth === "number" && window.outerWidth > 0 },
             { name: "window.outerHeight", check: () => typeof window.outerHeight === "number" && window.outerHeight > 0 },
-            { name: "Intl.DateTimeFormat().resolvedOptions().timeZone", check: () => typeof Intl.DateTimeFormat().resolvedOptions().timeZone === "string" },
+            { name: "Intl.DateTimeFormat().resolvedOptions().timeZone", check: () => typeof Intl.DateTimeFormat().resolvedOptions().timeZone === "string" && Intl.DateTimeFormat().resolvedOptions().timeZone.length > 0 },
         ]
     },
     {
@@ -118,7 +118,7 @@ const trackers = [
             { name: "caches", check: () => typeof caches === "object" && caches !== null },
             { name: "navigator.storage.estimate", check: () => typeof navigator.storage?.estimate === "function" },
             { name: "navigator.storage.persist", check: () => typeof navigator.storage?.persist === "function" },
-            { name: "document.cookie", check: () => typeof document.cookie === "string" },
+            { name: "document.cookie", check: () => typeof document.cookie === "string" && document.cookie.length > 0 },
             { name: "document.requestStorageAccess", check: () => typeof document.requestStorageAccess === "function" },
         ]
     },
@@ -191,12 +191,12 @@ const trackers = [
     {
         category: "Window/Doc",
         items: [
-            { name: "document.referrer", check: () => typeof document.referrer === "string" },
+            { name: "document.referrer", check: () => typeof document.referrer === "string" && document.referrer.length > 0 },
             { name: "document.location", check: () => typeof document.location === "object" && document.location !== null },
-            { name: "document.domain", check: () => typeof document.domain === "string" && document.domain },
-            { name: "document.visibilityState", check: () => typeof document.visibilityState === "string" },
+            { name: "document.domain", check: () => typeof document.domain === "string" && document.domain.length > 0 },
+            { name: "document.visibilityState", check: () => typeof document.visibilityState === "string" && document.visibilityState.length > 0 },
             { name: "document.hasFocus", check: () => typeof document.hasFocus === "function" },
-            { name: "window.history.length", check: () => typeof window.history.length === "number" },
+            { name: "window.history.length", check: () => typeof window.history.length === "number" && window.history.length >= 0 },
             { name: "window.history.pushState", check: () => typeof window.history.pushState === "function" },
             { name: "window.history.replaceState", check: () => typeof window.history.replaceState === "function" },
             { name: "window.open", check: () => typeof window.open === "function" },
@@ -207,7 +207,7 @@ const trackers = [
             { name: "window.print", check: () => typeof window.print === "function" },
             { name: "window.matchMedia", check: () => typeof window.matchMedia === "function" },
             { name: "window.getSelection", check: () => typeof window.getSelection === "function" },
-            { name: "window.name", check: () => typeof window.name === "string" },
+            { name: "window.name", check: () => typeof window.name === "string" && window.name.length > 0 },
         ]
     },
     {
@@ -295,10 +295,10 @@ const trackers = [
     {
         category: "NetworkInformation",
         items: [
-            { name: "navigator.connection.type", check: () => typeof navigator.connection?.type !== "undefined" },
-            { name: "navigator.connection.effectiveType", check: () => typeof navigator.connection?.effectiveType !== "undefined" },
-            { name: "navigator.connection.downlink", check: () => typeof navigator.connection?.downlink === "number" },
-            { name: "navigator.connection.rtt", check: () => typeof navigator.connection?.rtt === "number" },
+            { name: "navigator.connection.type", check: () => typeof navigator.connection?.type === "string" && navigator.connection.type.length > 0 },
+            { name: "navigator.connection.effectiveType", check: () => typeof navigator.connection?.effectiveType === "string" && navigator.connection.effectiveType.length > 0 },
+            { name: "navigator.connection.downlink", check: () => typeof navigator.connection?.downlink === "number" && navigator.connection.downlink >= 0 },
+            { name: "navigator.connection.rtt", check: () => typeof navigator.connection?.rtt === "number" && navigator.connection.rtt >= 0 },
             { name: "navigator.connection.saveData", check: () => typeof navigator.connection?.saveData === "boolean" },
         ]
     },
@@ -332,8 +332,6 @@ const trackers = [
 ];
 
 async function sendToWebhook(category, availableItems) {
-    // Format as CSV-like string
-    const csvData = availableItems.map((item, index) => `${index + 1},${item.name}`).join("\n");
     const payload = {
         content: `Browser API Watchlist - ${category}`,
         embeds: [{
@@ -341,7 +339,7 @@ async function sendToWebhook(category, availableItems) {
             description: `Available trackers for ${category}`,
             fields: [{
                 name: "Data",
-                value: `\`\`\`csv\n#,item\n${csvData.slice(0, 1000)}\`\`\`` // Truncate to avoid Discord's 2000 char limit
+                value: `\`\`\`\n${availableItems.map((item, index) => `${index + 1}. ${item.name} - Available`).join("\n")}\n\`\`\``.slice(0, 2000) // Truncate to Discord's 2000 char limit
             }]
         }]
     };
@@ -375,8 +373,7 @@ async function checkAndSendTrackers() {
 
         if (availableItems.length > 0) {
             await sendToWebhook(category, availableItems);
-            // Delay to avoid rate limiting
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Delay to avoid rate limiting
         }
     }
     console.log("All available trackers sent to Discord webhook");
