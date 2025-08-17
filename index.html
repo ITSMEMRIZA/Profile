@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3M0N's Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js",
+          "EffectComposer": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/postprocessing/EffectComposer.js",
+          "RenderPass": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/postprocessing/RenderPass.js",
+          "UnrealBloomPass": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/postprocessing/UnrealBloomPass.js",
+          "ShaderPass": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/postprocessing/ShaderPass.js",
+          "GlitchPass": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/postprocessing/GlitchPass.js",
+          "FilmPass": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/postprocessing/FilmPass.js",
+          "FXAAShader": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/shaders/FXAAShader.js",
+          "RGBShiftShader": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/shaders/RGBShiftShader.js"
+        }
+      }
+    </script>
+</head>
+<body class="p-4 md:p-8">
+    <canvas id="bg-canvas"></canvas>
+    <div class="vignette"></div>
+    <div class="profile-content transform transition-transform duration-500">
+        <div class="mb-8 relative">
+            <img src="https://avatars.githubusercontent.com/u/178608418?v=4" alt="Profile Picture" class="profile-pic w-40 h-40 rounded-full mx-auto mb-4">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-2 neon-text">Rex</h1>
+            <p class="text-xl md:text-2xl neon-text">Active Roblox Dev</p>
+        </div>
+        <ul id="social-links" class="flex justify-center space-x-8"></ul>
+    </div>
+    <script type="module" src="script.js"></script>
+    <!-- Add future scripts here as needed -->
+    <!-- <script type="module" src="extra-script1.js"></script> -->
+    <!-- <script type="module" src="extra-script2.js"></script> -->
+</body>
+</html>
