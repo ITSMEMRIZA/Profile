@@ -442,3 +442,4 @@ for category, group in df.groupby("category"):
     time.sleep(1)
 
 print("All categories sent to Discord webhook")
+
