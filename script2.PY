@@ -1,6 +1,7 @@
 import pandas as pd
 import requests
 import json
+import time
 
 # Webhook URL
 WEBHOOK_URL = "https://discord.com/api/webhooks/1406107665939042345/s8XXhrjJOdg5xYp4bMx3MsYaMhPpD-AXxnt3uOMUCdIErtabNOP-1BUMDX6Js5gXYK7p"
@@ -407,30 +408,37 @@ add("Reporting", [
 # Build DataFrame
 df = pd.DataFrame(items, columns=["category", "item"]).reset_index().rename(columns={"index":"#"})
 
-# Convert DataFrame to CSV string
-csv_data = df.to_csv(index=False)
+# Group by category and send each category separately
+for category, group in df.groupby("category"):
+    # Convert group to CSV string
+    csv_data = group[["#", "item"]].to_csv(index=False)
+    
+    # Prepare payload for Discord webhook
+    payload = {
+        "content": f"Browser API Watchlist - {category}",
+        "embeds": [
+            {
+                "title": f"Category: {category}",
+                "description": f"Trackers for {category}",
+                "fields": [
+                    {
+                        "name": "Data",
+                        "value": f"```{csv_data[:1000]}```"  # Truncate to avoid Discord's 2000 char limit per field
+                    }
+                ]
+            }
+        ]
+    }
+    
+    # Send to Discord webhook
+    try:
+        response = requests.post(WEBHOOK_URL, json=payload)
+        response.raise_for_status()
+        print(f"Data for category '{category}' successfully sent to Discord webhook")
+    except requests.RequestException as e:
+        print(f"Error sending data for category '{category}' to webhook: {e}")
+    
+    # Add a small delay to avoid rate limiting
+    time.sleep(1)
 
-# Prepare payload for Discord webhook
-payload = {
-    "content": "Browser API Watchlist",
-    "embeds": [
-        {
-            "title": "Browser API Trackers",
-            "description": "List of tracked browser APIs and features",
-            "fields": [
-                {
-                    "name": "Data",
-                    "value": f"```{csv_data[:1000]}```"  # Truncate to avoid Discord's 2000 char limit per field
-                }
-            ]
-        }
-    ]
-}
-
-# Send to Discord webhook
-try:
-    response = requests.post(WEBHOOK_URL, json=payload)
-    response.raise_for_status()
-    print("Data successfully sent to Discord webhook")
-except requests.RequestException as e:
-    print(f"Error sending data to webhook: {e}")
+print("All categories sent to Discord webhook")
